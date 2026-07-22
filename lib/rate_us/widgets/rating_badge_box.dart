@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../theme/rate_us_colors.dart';
-import 'badge_pin.dart';
 import 'star_row.dart';
 import 'wreath.dart';
 
@@ -71,7 +70,6 @@ class RatingBadgeBox extends StatelessWidget {
             ],
           ),
         ),
-        const Positioned(top: -14, child: BadgePin()),
       ],
     );
   }
