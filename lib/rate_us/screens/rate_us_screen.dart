@@ -10,6 +10,12 @@ import '../widgets/review_card.dart';
 class RateUsScreen extends StatelessWidget {
   const RateUsScreen({super.key});
 
+  static const _heroAvatarAssets = [
+    'assets/images/person1.png',
+    'assets/images/person2.png',
+    'assets/images/person3.png',
+  ];
+
   @override
   Widget build(BuildContext context) {
     final locale = Localizations.localeOf(context);
@@ -109,18 +115,20 @@ class RateUsScreen extends StatelessWidget {
   }
 
   Widget _buildAvatars(bool isArabic) {
-    const seeds = ['a', 'b', 'c'];
+    final assets = isArabic
+        ? _heroAvatarAssets.reversed.toList()
+        : _heroAvatarAssets;
     final overlap = isArabic ? 10.0 : -10.0;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        for (var i = 0; i < seeds.length; i++)
+        for (var i = 0; i < assets.length; i++)
           Transform.translate(
             offset: Offset(i * overlap, 0),
             child: PlaceholderAvatar(
               radius: 22,
-              colorSeed: seeds[i],
+              imageAsset: assets[i],
             ),
           ),
       ],
