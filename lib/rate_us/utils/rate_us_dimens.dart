@@ -19,9 +19,9 @@ extension RateUsDimens on BuildContext {
   double get rateUsCaptionSize => 13 * rateUsScale;
   double get rateUsSmallSize => 12 * rateUsScale;
 
-  double get rateUsStarSize => 24 * rateUsScale;
+  double get rateUsStarSize => 34 * rateUsScale;
   double get rateUsReviewStarSize => 13 * rateUsScale;
-  double get rateUsWreathSize => 50 * rateUsScale;
+  double get rateUsWreathSize => 34 * rateUsScale;
   double get rateUsAvatarRadius => 22 * rateUsScale;
   double get rateUsReviewAvatarRadius => 18 * rateUsScale;
 
