@@ -16,7 +16,7 @@ class ReviewCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: rateUsReviewCardBg,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: rateUsLightBorder),
         boxShadow: const [

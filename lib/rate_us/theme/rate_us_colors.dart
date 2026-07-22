@@ -17,3 +17,6 @@ const Color rateUsBorder = Color(0xFFECECEC);
 
 /// Light border / dotted background color.
 const Color rateUsLightBorder = Color(0xFFEDEDED);
+
+/// Review card background color.
+const Color rateUsReviewCardBg = Color(0xFFF5F5F7);
