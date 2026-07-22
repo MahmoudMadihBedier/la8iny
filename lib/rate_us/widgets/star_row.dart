@@ -11,8 +11,9 @@ class StarRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fullStars = rating.floor();
-    final hasHalf = (rating - fullStars) >= 0.5;
+    final clamped = rating.clamp(0.0, 5.0);
+    final fullStars = clamped.floor();
+    final hasHalf = (clamped - fullStars) >= 0.5;
     final emptyStars = 5 - fullStars - (hasHalf ? 1 : 0);
 
     return Row(

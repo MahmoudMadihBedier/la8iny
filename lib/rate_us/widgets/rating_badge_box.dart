@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/rate_us_colors.dart';
+import '../utils/rate_us_dimens.dart';
 import 'star_row.dart';
 import 'wreath.dart';
 
@@ -39,30 +40,34 @@ class RatingBadgeBox extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Wreath(flip: false),
-                  const SizedBox(width: 14),
-                  Text(
-                    rating,
-                    style: const TextStyle(
-                      fontSize: 34,
-                      fontWeight: FontWeight.w800,
-                      color: rateUsNavy,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Wreath(flip: false, size: context.rateUsWreathSize),
+                    const SizedBox(width: 14),
+                    Text(
+                      rating,
+                      style: TextStyle(
+                        fontSize: context.rateUsRatingSize,
+                        fontWeight: FontWeight.w800,
+                        color: rateUsNavy,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  const StarRow(rating: 5, size: 24),
-                  const SizedBox(width: 14),
-                  const Wreath(flip: true),
-                ],
+                    const SizedBox(width: 12),
+                    StarRow(rating: 5, size: context.rateUsStarSize),
+                    const SizedBox(width: 14),
+                    Wreath(flip: true, size: context.rateUsWreathSize),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
               Text(
                 downloadsLabel,
-                style: const TextStyle(
-                  fontSize: 15,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: context.rateUsBodySize,
                   fontWeight: FontWeight.w500,
                   color: Colors.black45,
                 ),

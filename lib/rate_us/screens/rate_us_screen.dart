@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/rate_us_strings.dart';
 import '../theme/rate_us_colors.dart';
+import '../utils/rate_us_dimens.dart';
 import '../widgets/dotted_background.dart';
 import '../widgets/placeholder_avatar.dart';
 import '../widgets/rating_badge_box.dart';
@@ -32,38 +33,47 @@ class RateUsScreen extends StatelessWidget {
               child: CustomPaint(painter: DottedBackgroundPainter()),
             ),
             SafeArea(
-              child: Column(
-                children: [
-                  _buildCloseButton(context),
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      children: [
-                        const SizedBox(height: 8),
-                        _buildTitle(strings.title),
-                        const SizedBox(height: 36),
-                        RatingBadgeBox(
-                          rating: '4.3',
-                          downloadsLabel: strings.downloads,
-                        ),
-                        const SizedBox(height: 44),
-                        _buildSubtitle(strings.subtitle),
-                        const SizedBox(height: 18),
-                        _buildAvatars(isArabic),
-                        const SizedBox(height: 10),
-                        _buildCaption(strings.usedBy),
-                        const SizedBox(height: 28),
-                        for (final review in strings.reviews)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
-                            child: ReviewCard(review: review),
-                          ),
-                        const SizedBox(height: 8),
-                      ],
-                    ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: RateUsDimens.maxContentWidth,
                   ),
-                  _buildCta(context, strings),
-                ],
+                  child: Column(
+                    children: [
+                      _buildCloseButton(context),
+                      Expanded(
+                        child: ListView(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: context.rateUsContentPadding,
+                          ),
+                          children: [
+                            const SizedBox(height: 8),
+                            _buildTitle(context, strings.title, isArabic),
+                            const SizedBox(height: 36),
+                            RatingBadgeBox(
+                              rating: '4.3',
+                              downloadsLabel: strings.downloads,
+                            ),
+                            const SizedBox(height: 44),
+                            _buildSubtitle(context, strings.subtitle),
+                            const SizedBox(height: 18),
+                            _buildAvatars(context, isArabic),
+                            const SizedBox(height: 10),
+                            _buildCaption(context, strings.usedBy),
+                            const SizedBox(height: 28),
+                            for (final review in strings.reviews)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: ReviewCard(review: review),
+                              ),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
+                      ),
+                      _buildCta(context, strings),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
@@ -85,28 +95,32 @@ class RateUsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(String title) {
+  Widget _buildTitle(BuildContext context, String title, bool isArabic) {
     return Align(
       alignment: AlignmentDirectional.centerStart,
-      child: Text(
-        title,
-        textAlign: TextAlign.start,
-        style: const TextStyle(
-          fontSize: 32,
-          fontWeight: FontWeight.w800,
-          color: rateUsNavy,
-          height: 1.1,
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        alignment: isArabic ? Alignment.centerRight : Alignment.centerLeft,
+        child: Text(
+          title,
+          textAlign: TextAlign.start,
+          style: TextStyle(
+            fontSize: context.rateUsTitleSize,
+            fontWeight: FontWeight.w800,
+            color: rateUsNavy,
+            height: 1.1,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildSubtitle(String subtitle) {
+  Widget _buildSubtitle(BuildContext context, String subtitle) {
     return Text(
       subtitle,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 22,
+      style: TextStyle(
+        fontSize: context.rateUsSubtitleSize,
         fontWeight: FontWeight.w700,
         color: rateUsNavy,
         height: 1.25,
@@ -114,7 +128,7 @@ class RateUsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildAvatars(bool isArabic) {
+  Widget _buildAvatars(BuildContext context, bool isArabic) {
     final assets = isArabic
         ? _heroAvatarAssets.reversed.toList()
         : _heroAvatarAssets;
@@ -127,7 +141,7 @@ class RateUsScreen extends StatelessWidget {
           Transform.translate(
             offset: Offset(i * overlap, 0),
             child: PlaceholderAvatar(
-              radius: 22,
+              radius: context.rateUsAvatarRadius,
               imageAsset: assets[i],
             ),
           ),
@@ -135,12 +149,12 @@ class RateUsScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildCaption(String usedBy) {
+  Widget _buildCaption(BuildContext context, String usedBy) {
     return Text(
       usedBy,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontSize: 14,
+      style: TextStyle(
+        fontSize: context.rateUsBodySize,
         fontWeight: FontWeight.w600,
         color: Colors.black54,
       ),
@@ -149,7 +163,12 @@ class RateUsScreen extends StatelessWidget {
 
   Widget _buildCta(BuildContext context, RateUsStrings strings) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+      padding: EdgeInsets.fromLTRB(
+        context.rateUsContentPadding,
+        8,
+        context.rateUsContentPadding,
+        16,
+      ),
       child: Column(
         children: [
           SizedBox(
@@ -166,12 +185,15 @@ class RateUsScreen extends StatelessWidget {
               onPressed: () {
                 // TODO: hook up to app store / play store review flow
               },
-              child: Text(
-                strings.cta,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  strings.cta,
+                  style: TextStyle(
+                    fontSize: context.rateUsCtaSize,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -179,8 +201,9 @@ class RateUsScreen extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             strings.footer,
-            style: const TextStyle(
-              fontSize: 12,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: context.rateUsSmallSize,
               color: Colors.black38,
             ),
           ),

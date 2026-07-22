@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../models/review.dart';
 import '../theme/rate_us_colors.dart';
+import '../utils/rate_us_dimens.dart';
 import 'placeholder_avatar.dart';
 import 'star_row.dart';
 
@@ -30,7 +31,6 @@ class ReviewCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PlaceholderAvatar(
-            radius: 18,
             imageAsset: review.avatarAsset,
             backgroundColor: review.avatarBackgroundColor,
           ),
@@ -44,21 +44,21 @@ class ReviewCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         review.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                          fontSize: context.rateUsBodySize,
                           color: Colors.black87,
                         ),
                       ),
                     ),
-                    const StarRow(rating: 5, size: 13),
+                    StarRow(rating: 5, size: context.rateUsReviewStarSize),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
                   review.text,
-                  style: const TextStyle(
-                    fontSize: 13,
+                  style: TextStyle(
+                    fontSize: context.rateUsCaptionSize,
                     color: Colors.black54,
                     height: 1.3,
                   ),
