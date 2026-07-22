@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
+import '../utils/rate_us_dimens.dart';
+
 /// Circular avatar that can show an [imageAsset] or a colored placeholder.
 class PlaceholderAvatar extends StatelessWidget {
-  final double radius;
+  final double? radius;
   final String? imageAsset;
   final String? colorSeed;
   final Color? backgroundColor;
 
   const PlaceholderAvatar({
     super.key,
-    required this.radius,
+    this.radius,
     this.imageAsset,
     this.colorSeed,
     this.backgroundColor,
@@ -24,6 +26,7 @@ class PlaceholderAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final r = radius ?? context.rateUsReviewAvatarRadius;
     final color = backgroundColor ??
         (colorSeed == null
             ? Colors.grey.shade300
@@ -31,16 +34,16 @@ class PlaceholderAvatar extends StatelessWidget {
 
     if (imageAsset != null) {
       return CircleAvatar(
-        radius: radius,
+        radius: r,
         backgroundImage: AssetImage(imageAsset!),
         backgroundColor: color,
       );
     }
 
     return CircleAvatar(
-      radius: radius,
+      radius: r,
       backgroundColor: color,
-      child: Icon(Icons.person, size: radius, color: Colors.white),
+      child: Icon(Icons.person, size: r, color: Colors.white),
     );
   }
 }
