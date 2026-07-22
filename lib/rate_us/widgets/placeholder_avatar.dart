@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-/// Circular avatar placeholder.
-///
-/// Swap the [CircleAvatar.child] or use [backgroundImage] when real assets are available.
+/// Circular avatar that can show an [imageAsset] or a colored placeholder.
 class PlaceholderAvatar extends StatelessWidget {
   final double radius;
+  final String? imageAsset;
   final String? colorSeed;
+  final Color? backgroundColor;
 
-  const PlaceholderAvatar({super.key, required this.radius, this.colorSeed});
+  const PlaceholderAvatar({
+    super.key,
+    required this.radius,
+    this.imageAsset,
+    this.colorSeed,
+    this.backgroundColor,
+  });
 
   static const _colors = [
     Color(0xFFB9D8FF),
@@ -18,9 +24,18 @@ class PlaceholderAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = colorSeed == null
-        ? Colors.grey.shade300
-        : _colors[colorSeed.hashCode.abs() % _colors.length];
+    final color = backgroundColor ??
+        (colorSeed == null
+            ? Colors.grey.shade300
+            : _colors[colorSeed.hashCode.abs() % _colors.length]);
+
+    if (imageAsset != null) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundImage: AssetImage(imageAsset!),
+        backgroundColor: color,
+      );
+    }
 
     return CircleAvatar(
       radius: radius,
