@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/rate_us_colors.dart';
+import 'placeholder_avatar.dart';
 
 class BadgePin extends StatelessWidget {
   const BadgePin({super.key});
@@ -34,13 +35,9 @@ class BadgePin extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 12),
-            child: ClipOval(
-              child: Container(
-                width: 34,
-                height: 34,
-                color: Colors.grey.shade300,
-                child: Icon(Icons.person, size: 20, color: Colors.grey.shade50),
-              ),
+            child: PlaceholderAvatar(
+              radius: 17,
+              imageAsset: 'assets/images/person2.png',
             ),
           ),
         ],

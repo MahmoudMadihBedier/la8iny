@@ -29,7 +29,11 @@ class ReviewCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          PlaceholderAvatar(radius: 18, colorSeed: review.name),
+          PlaceholderAvatar(
+            radius: 18,
+            imageAsset: review.avatarAsset,
+            backgroundColor: review.avatarBackgroundColor,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
